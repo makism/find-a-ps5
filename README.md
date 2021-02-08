@@ -3,17 +3,23 @@
 
 - - -
 
-# Installation 
+## Stores
+
+- Coolblue
+- Bol
+- Gamemania
+
+## Installation 
 
 Place the contents of the directory `airflow/` into your local Airflow installation directory.
 
-# Setup Airflow
+## Setup Airflow
 
-## E-mail
+### E-mail
 
 You have to configure properly the `smtp` section in the file `airflow.cfg`.
 
-## Variables
+### Variables
 
 | variable                 | description                                     |
 |--------------------------|-------------------------------------------------|
