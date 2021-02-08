@@ -5,6 +5,8 @@
 
 ## Stores
 
+Currently the pipelines probe the following stores:
+
 - Coolblue
 - Bol
 - Gamemania
