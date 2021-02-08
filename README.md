@@ -1,5 +1,7 @@
-# find-a-ps5
-Some simple Airflow pipelines to check and notify for PS5 availability.
+#### find-a-ps5
+<i>Some simple Airflow pipelines to check and notify for PS5 availability.</i>
+
+- - -
 
 # Installation 
 
