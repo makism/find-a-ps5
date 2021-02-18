@@ -10,6 +10,8 @@ import os
 from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 
+from airflow.providers.telegram.hooks.telegram import TelegramHook
+
 
 class BaseCheck(BaseOperator):
     @apply_defaults
@@ -31,15 +33,15 @@ class BaseCheck(BaseOperator):
         result = "Probably available" if pass_check else "Not available..."
         self.log.info(self.log_str_base + result)
 
-        notfication_email_to = None
-        notfication_email_subject = None
+        notification_email_to = None
+        notification_email_subject = None
         try:
             notification_email_to = Variable.get("PS5_notification_to")
         except Exception as err:
             pass
 
         try:
-            notfication_email_subject = Variable.get("PS5_notification_subject")
+            notification_email_subject = Variable.get("PS5_notification_subject")
         except Exception as err:
             pass
 
@@ -63,12 +65,30 @@ class BaseCheck(BaseOperator):
                 self.log.error("Failed rendering: ", err)
                 return
 
-            send_email_smtp(
-                to=notification_email_to,
-                subject=notification_email_subject,
-                html_content=content,
-                dryrun=False,
-            )
+            # Send an e-mail
+            if (
+                notification_email_to is not None
+                and notification_email_subject is not None
+            ):
+                send_email_smtp(
+                    to=notification_email_to,
+                    subject=notification_email_subject,
+                    html_content=content,
+                    dryrun=False,
+                )
+
+            # Send a Telegram message
+            tel_token = None
+            tel_chat_id = None
+            try:
+                tel_token = Variable.get("TELEGRAM_BOT_TOKEN")
+                tel_chat_id = Variable.get("TELEGRAM_CHAT_ID")
+
+                telegram_hook = TelegramHook(token=tel_token, chat_id=tel_chat_id)
+                telegram_hook.send_message({"text": "asd"})
+            except Exception as err:
+                self.log.error("Telegram-related error: ", err)
+                return
 
     def pass1Text(self, page: str, target: str) -> bool:
         """Checks for the given string in the page."""

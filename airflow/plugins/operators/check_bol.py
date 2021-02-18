@@ -25,6 +25,10 @@ class CheckBol(BaseCheck):
 
             self.check_pass([pass1, pass2])
 
+            return True
+
+        return False
+
     def pass2Parse(self, page: str) -> bool:
         """Parses the HTML code, and tries to access the specific HTML elements."""
         soup = BeautifulSoup(page, "html.parser")
