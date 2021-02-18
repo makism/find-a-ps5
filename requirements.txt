@@ -1,3 +1,4 @@
-apache-airflow~>1.10.10
+apache-airflow>2.0.0
+apache-airflow-providers-telegram
 beautifulsoup4>=4.9.3
 jinja2
