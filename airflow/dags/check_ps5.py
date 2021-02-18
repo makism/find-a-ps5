@@ -44,7 +44,7 @@ with DAG(
 
     t_coolblue_disk = CheckCoolblue(
         task_id="Coolblue_PS5_Disk",
-        link="https://www.coolblue.nl/en/product/865866/playstation-5.html",
+        link="https://www.coolblue.nl/product/865866/playstation-5.html",
         description="PlayStation 5 Disk Edition",
     )
 
